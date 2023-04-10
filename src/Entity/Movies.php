@@ -34,15 +34,20 @@ class Movies
     #[ORM\Column(length: 255)]
     private ?string $productor = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $Actors = null;
-
     #[ORM\ManyToMany(targetEntity: Playlists::class, mappedBy: 'Playlists_Movies')]
     private Collection $playlists;
+
+    #[ORM\ManyToMany(targetEntity: Actors::class, mappedBy: 'movies_actors')]
+    private Collection $actors;
+
+    #[ORM\ManyToMany(targetEntity: Categories::class, mappedBy: 'Movies_Categories')]
+    private Collection $categories;
 
     public function __construct()
     {
         $this->playlists = new ArrayCollection();
+        $this->actors = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,18 +127,6 @@ class Movies
         return $this;
     }
 
-    public function getActors(): ?string
-    {
-        return $this->Actors;
-    }
-
-    public function setActors(string $Actors): self
-    {
-        $this->Actors = $Actors;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Playlists>
      */
@@ -160,4 +153,51 @@ class Movies
 
         return $this;
     }
+
+    public function addActor(Actors $actor): self
+    {
+        if (!$this->actors->contains($actor)) {
+            $this->actors->add($actor);
+            $actor->addMoviesActor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActor(Actors $actor): self
+    {
+        if ($this->actors->removeElement($actor)) {
+            $actor->removeMoviesActor($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Categories>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categories $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->addMoviesCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categories $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeMoviesCategory($this);
+        }
+
+        return $this;
+    }
+
 }
