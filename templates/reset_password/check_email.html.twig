@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mail envoyé{% endblock %}
+
+{% block body %}
+
+<section class="container my-5" style="min-height: 86.2vh;">
+	<div class="row">
+        <h1>Mail envoyé !</h1>
+        <p>
+            Si un compte correspondant à votre email existe, alors un e-mail vient d’être envoyé. Cet e-mail contient un lien que vous pouvez utiliser pour réinitialiser votre mot de passe.
+            Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+        </p>
+        <p>Si vous ne recevez pas de mail, veuillez vérifier votre dossier spam ou <a href="{{ path('app_forgot_password_request') }}">réessayez</a>.</p>
+
+        <p>À bientôt sur Cineflix !</p>
+	</div>
+</section>
+    
+{% endblock %}

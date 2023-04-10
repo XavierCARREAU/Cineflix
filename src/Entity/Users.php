@@ -6,10 +6,12 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Un compte utilisant cette adresse e-mail existe déjà.')]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -32,10 +34,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $username = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255 , options:['default'=>'public\images\profil\default.png'])]
     private ?string $profil_pic = null;
-
-    #[ORM\Column]
+    
+    #[ORM\Column(type: 'datetime_immutable', options:['default'=>'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\ManyToMany(targetEntity: Movies::class)]
@@ -47,11 +49,16 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Playlists::class, mappedBy: 'whitelist')]
     private Collection $subscribed_playlists;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
+
     public function __construct()
     {
         $this->Users_movies = new ArrayCollection();
         $this->playlists = new ArrayCollection();
         $this->subscribed_playlists = new ArrayCollection();
+        $this->profil_pic = "public\images\profil\default.png";
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -237,6 +244,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->subscribed_playlists->removeElement($subscribedPlaylist)) {
             $subscribedPlaylist->removeWhitelist($this);
         }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
