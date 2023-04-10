@@ -43,6 +43,9 @@ class Movies
     #[ORM\ManyToMany(targetEntity: Categories::class, mappedBy: 'Movies_Categories')]
     private Collection $categories;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->playlists = new ArrayCollection();
@@ -196,6 +199,18 @@ class Movies
         if ($this->categories->removeElement($category)) {
             $category->removeMoviesCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

@@ -19,6 +19,7 @@ class Categories
     private ?string $name = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?self $parent = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
@@ -26,6 +27,9 @@ class Categories
 
     #[ORM\ManyToMany(targetEntity: Movies::class, inversedBy: 'categories')]
     private Collection $Movies_Categories;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -112,6 +116,18 @@ class Categories
     public function removeMoviesCategory(Movies $moviesCategory): self
     {
         $this->Movies_Categories->removeElement($moviesCategory);
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

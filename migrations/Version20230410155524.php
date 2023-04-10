@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230410102621 extends AbstractMigration
+final class Version20230410155524 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -22,9 +22,9 @@ final class Version20230410102621 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE actors (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE actors_movies (actors_id INT NOT NULL, movies_id INT NOT NULL, INDEX IDX_B3012DC07168CF59 (actors_id), INDEX IDX_B3012DC053F590A4 (movies_id), PRIMARY KEY(actors_id, movies_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE categories (id INT AUTO_INCREMENT NOT NULL, parent_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_3AF34668727ACA70 (parent_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE categories (id INT AUTO_INCREMENT NOT NULL, parent_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, INDEX IDX_3AF34668727ACA70 (parent_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE categories_movies (categories_id INT NOT NULL, movies_id INT NOT NULL, INDEX IDX_CE77D308A21214B7 (categories_id), INDEX IDX_CE77D30853F590A4 (movies_id), PRIMARY KEY(categories_id, movies_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE movies (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, poster VARCHAR(255) NOT NULL, release_date DATE NOT NULL, director VARCHAR(255) NOT NULL, productor VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE movies (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, poster VARCHAR(255) NOT NULL, release_date DATE NOT NULL, director VARCHAR(255) NOT NULL, productor VARCHAR(255) NOT NULL, slug VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE playlists (id INT AUTO_INCREMENT NOT NULL, created_by_id INT NOT NULL, name VARCHAR(255) NOT NULL, public TINYINT(1) NOT NULL, description LONGTEXT DEFAULT NULL, INDEX IDX_5E06116FB03A8386 (created_by_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE playlists_movies (playlists_id INT NOT NULL, movies_id INT NOT NULL, INDEX IDX_2ECB6AB09F70CF56 (playlists_id), INDEX IDX_2ECB6AB053F590A4 (movies_id), PRIMARY KEY(playlists_id, movies_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE playlists_users (playlists_id INT NOT NULL, users_id INT NOT NULL, INDEX IDX_79D016AE9F70CF56 (playlists_id), INDEX IDX_79D016AE67B3B43D (users_id), PRIMARY KEY(playlists_id, users_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -34,7 +34,7 @@ final class Version20230410102621 extends AbstractMigration
         $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL, available_at DATETIME NOT NULL, delivered_at DATETIME DEFAULT NULL, INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE actors_movies ADD CONSTRAINT FK_B3012DC07168CF59 FOREIGN KEY (actors_id) REFERENCES actors (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE actors_movies ADD CONSTRAINT FK_B3012DC053F590A4 FOREIGN KEY (movies_id) REFERENCES movies (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE categories ADD CONSTRAINT FK_3AF34668727ACA70 FOREIGN KEY (parent_id) REFERENCES categories (id)');
+        $this->addSql('ALTER TABLE categories ADD CONSTRAINT FK_3AF34668727ACA70 FOREIGN KEY (parent_id) REFERENCES categories (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE categories_movies ADD CONSTRAINT FK_CE77D308A21214B7 FOREIGN KEY (categories_id) REFERENCES categories (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE categories_movies ADD CONSTRAINT FK_CE77D30853F590A4 FOREIGN KEY (movies_id) REFERENCES movies (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE playlists ADD CONSTRAINT FK_5E06116FB03A8386 FOREIGN KEY (created_by_id) REFERENCES users (id)');
