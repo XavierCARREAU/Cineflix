@@ -22,7 +22,7 @@ class Movies
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, options:['default'=>'public\upload\images\poster\default.png'])]
     private ?string $poster = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -213,6 +213,11 @@ class Movies
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
 }

@@ -18,7 +18,7 @@ class Actors
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: movies::class, inversedBy: 'actors')]
+    #[ORM\ManyToMany(targetEntity: Movies::class, inversedBy: 'actors')]
     private Collection $movies_actors;
 
     public function __construct()
@@ -65,5 +65,10 @@ class Actors
         $this->movies_actors->removeElement($moviesActor);
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

@@ -24,7 +24,7 @@ class UserFixtures extends Fixture
         $admin->setPassword(
             $this->passwordEncoder->hashPassword($admin, 'admin')
         );
-        $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setRoles(["ROLE_USER","ROLE_ADMIN"]);
         $manager->persist($admin);
 
         $faker = Faker\Factory::create('fr_FR');
@@ -36,6 +36,7 @@ class UserFixtures extends Fixture
             $user->setPassword(
                 $this->passwordEncoder->hashPassword($user, 'secret')
             );
+            $user->setRoles(["ROLE_USER"]);
             $manager->persist($user);
         }
 

@@ -34,7 +34,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $username = null;
 
-    #[ORM\Column(length: 255 , options:['default'=>'public\images\profil\default.png'])]
+    #[ORM\Column(length: 255 , options:['default'=>'public\upload\images\profil\default.png'])]
     private ?string $profil_pic = null;
     
     #[ORM\Column(type: 'datetime_immutable', options:['default'=>'CURRENT_TIMESTAMP'])]
@@ -258,5 +258,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 }

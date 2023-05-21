@@ -2,13 +2,89 @@
 
 {% block title %}Acceuil{% endblock %}
 
-{% block stylesheets %}{% endblock %}
+{% block stylesheets %}
+  <style>
+    .herobanner {
+        background-color: #4d4d4d;
+        background-size: cover;
+        background-position: center;
+        height: 85vh;
+        width: 100%;
+    }
+    
+    .herobanner h1{
+        font-size: 48px;
+        font-weight: bold;
+        padding-top: 25vh;
+    }
+    .herobanner h1:hover {
+        color: 
+    }
+
+    .herobanner h2 {
+        font-size: 32px;
+        font-weight: bold;
+        
+    }   
+
+  </style>
+{% endblock %}
 
 {% block body %}
-	<section class="container my-5" style="min-height: 86.2vh;">
+    <section class="container-fluid">
+        <div class="herobanner">
+            <h1 class="text-center text-white">Bienvenue sur Cineflix</h1>
+            <h2 class="text-center text-white pt-4">Le meilleur de Netflix</h2>
+        </div>
+    </section>
+	<section class="container my-5">
 		<div class="row">
-			<h1 class="text-center">Cineflix</h1>
-			<h2 class="text-center">Le meilleur de Netflix</h2>
+
+            <h2 class="mt-5 mb-4 text-center">Series populaires</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% for movie in movies %}
+                <div class="col">
+                    <a href="/movie/{{ movie.id }}" class="card">
+                    <img src="{{ asset("upload/images/poster/" ~ movie.poster) }}" class="card-img-top" alt="{{ movie.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <p class="card-text">{{ movie.description }}</p>
+                    </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+             <h2 class="mt-5 mb-4 text-center">Films populaires</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% for movie in movies %}
+                <div class="col">
+                    <a href="/movie/{{ movie.id }}" class="card">
+                    <img src="{{ asset("upload/images/poster/" ~ movie.poster) }}" class="card-img-top" alt="{{ movie.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <p class="card-text">{{ movie.description }}</p>
+                    </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <h2 class="mt-5 mb-4 text-center">Animes populaires</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% for movie in movies %}
+                <div class="col">
+                    <a href="/movie/{{ movie.id }}" class="card">
+                    <img src="{{ asset("upload/images/poster/" ~ movie.poster) }}" class="card-img-top" alt="{{ movie.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <p class="card-text">{{ movie.description }}</p>
+                    </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
 		</div>
 	</section>
 {% endblock %}

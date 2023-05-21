@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{movie.title}}{% endblock %}
+
+{# {% block body %}
+    <section class="container my-5" style="min-height: 86.2vh;">
+		<div class="row">
+			 <h1>{{movie.title}}</h1>
+                {{dump(movie)}}
+		</div>
+	</section> #}
+
+
+{% block stylesheets %}
+  <style>
+    .herobanner {
+        background-color: #4d4d4d;
+        background-size: cover;
+        background-position: center;
+        height: 65vh;
+        width: 100%;
+    }
+
+  </style>
+{% endblock %}
+
+{% block body %}
+    <section class="container-fluid">
+        <div class="herobanner"></div>
+    </section>
+	<img src="{{ asset("upload/images/poster/" ~ movie.poster) }}" class="rounded mx-auto d-block" alt="{{ movie.title }}" style="margin-top:-30vh;">
+	<section class="container my-5">
+		<div class="row">
+            <h1 class="mt-1 mb-4 text-center">{{ movie.title }}</h1>
+			<a class="mt-1 text-center">Watchlist</a>
+			<a class="mt-1 text-center">Durée</a>
+			<a class="mt-1 text-center">Categories</a>
+			<a class="mt-1 text-center">Note</a>
+			<h3 class="mt-1 mb-4">Synopsis</h3>
+			<p class="">{{ movie.description }}</p>
+
+		</div>
+	</section>
+{% endblock %}
+
