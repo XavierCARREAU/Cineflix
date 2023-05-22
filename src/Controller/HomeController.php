@@ -10,12 +10,16 @@ use App\Repository\MoviesRepository;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(MoviesRepository $movies_repo): Response
+    public function index(MoviesRepository $repository): Response
     {
-        $movies = $movies_repo->findAll();
+        $series = $repository->findAll();
+        $movies = $repository->findAll();
+        $animes = $repository->findAll();
 
         return $this->render('home/index.html.twig', [
-            'movies' => $movies
+            'series' => $series,
+            'movies' => $movies,
+            'animes' => $animes
         ]);
     }
 }

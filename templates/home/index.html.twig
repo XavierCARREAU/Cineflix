@@ -8,7 +8,7 @@
         background-color: #4d4d4d;
         background-size: cover;
         background-position: center;
-        height: 85vh;
+        height: 75vh;
         width: 100%;
     }
     
@@ -17,14 +17,10 @@
         font-weight: bold;
         padding-top: 25vh;
     }
-    .herobanner h1:hover {
-        color: 
-    }
 
     .herobanner h2 {
         font-size: 32px;
         font-weight: bold;
-        
     }   
 
   </style>
@@ -42,13 +38,13 @@
 
             <h2 class="mt-5 mb-4 text-center">Series populaires</h2>
             <div class="row row-cols-1 row-cols-md-4 g-4">
-                {% for movie in movies %}
+                {% for serie in series %}
                 <div class="col">
-                    <a href="/movie/{{ movie.id }}" class="card">
-                    <img src="{{ asset("upload/images/poster/" ~ movie.poster) }}" class="card-img-top" alt="{{ movie.title }}">
+                    <a href="/fiche/{{ serie.id }}" class="card">
+                    <img src="{{ asset("upload/images/poster/" ~ serie.poster) }}" class="card-img-top" alt="{{ serie.title }}">
                     <div class="card-body">
-                        <h5 class="card-title">{{ movie.title }}</h5>
-                        <p class="card-text">{{ movie.description }}</p>
+                        <h5 class="card-title">{{ serie.title }}</h5>
+                        <p class="card-text">{{ serie.description }}</p>
                     </div>
                     </a>
                 </div>
@@ -59,7 +55,7 @@
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 {% for movie in movies %}
                 <div class="col">
-                    <a href="/movie/{{ movie.id }}" class="card">
+                    <a href="/fiche/{{ movie.id }}" class="card">
                     <img src="{{ asset("upload/images/poster/" ~ movie.poster) }}" class="card-img-top" alt="{{ movie.title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ movie.title }}</h5>
@@ -72,13 +68,13 @@
 
             <h2 class="mt-5 mb-4 text-center">Animes populaires</h2>
             <div class="row row-cols-1 row-cols-md-4 g-4">
-                {% for movie in movies %}
+                {% for anime in animes %}
                 <div class="col">
-                    <a href="/movie/{{ movie.id }}" class="card">
-                    <img src="{{ asset("upload/images/poster/" ~ movie.poster) }}" class="card-img-top" alt="{{ movie.title }}">
+                    <a href="/fiche/{{ anime.id }}" class="card">
+                    <img src="{{ asset("upload/images/poster/" ~ anime.poster) }}" class="card-img-top" alt="{{ anime.title }}">
                     <div class="card-body">
-                        <h5 class="card-title">{{ movie.title }}</h5>
-                        <p class="card-text">{{ movie.description }}</p>
+                        <h5 class="card-title">{{ anime.title }}</h5>
+                        <p class="card-text">{{ anime.description }}</p>
                     </div>
                     </a>
                 </div>
