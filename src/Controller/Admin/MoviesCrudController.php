@@ -27,6 +27,7 @@ class MoviesCrudController extends AbstractCrudController
             TextField::new('title'),
             SlugField::new('slug')
                 ->setTargetFieldName('title'),
+            AssociationField::new('categories')->setRequired(true),
             TextEditorField::new('description'), //TODO Desactiver div en BDD
             ImageField::new('poster')
                 ->setBasePath('upload/images/poster')
@@ -35,9 +36,7 @@ class MoviesCrudController extends AbstractCrudController
             TextField::new('director'),
             TextField::new('productor'),
             // AssociationField::new('actors'),//TODO
-            // AssociationField::new('categories'),//TODO
             // AssociationField::new('playlists'),//TODO
-           
         ];
     }
     

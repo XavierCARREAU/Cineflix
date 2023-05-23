@@ -27,7 +27,8 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTitle('Cineflix - Administration')
-            ->renderContentMaximized();
+            ->renderContentMaximized()
+            ->setLocales(['fr']);
     }
 
     public function configureMenuItems(): iterable
