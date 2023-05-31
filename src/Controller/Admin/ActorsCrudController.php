@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Actors;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ActorsCrudController extends AbstractCrudController
@@ -19,7 +20,8 @@ class ActorsCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('name')
+            TextField::new('name'),
+            AssociationField::new('movies_actors', 'Films'),
         ];
     }
     

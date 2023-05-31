@@ -4,10 +4,14 @@ namespace App\Controller\Admin;
 
 use App\Entity\Users;
 use Symfony\Component\Form\FormEvents;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Symfony\Component\Form\FormBuilderInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
@@ -18,11 +22,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UsersCrudController extends AbstractCrudController
 {
+    
     public function __construct(
         public UserPasswordHasherInterface $userPasswordHasher
     ) {}
@@ -49,11 +55,12 @@ class UsersCrudController extends AbstractCrudController
             ImageField::new('profil_pic')
                 ->setBasePath('upload/images/profil')    
                 ->setUploadDir('public/upload/images/profil')
-                ->setSortable(false),           
+                ->setSortable(false)
+                ->setRequired(false),           
             EmailField::new('email')
                 ->hideWhenUpdating(),
             TextField::new('username'),
-            TextField::new('password')
+            TextField::new('password') 
                 ->setFormType(RepeatedType::class)
                 ->setFormTypeOptions([
                     'type' => PasswordType::class,
@@ -62,8 +69,7 @@ class UsersCrudController extends AbstractCrudController
                     'mapped' => false,
                 ])
                 ->setRequired($pageName === Crud::PAGE_NEW)
-                ->onlyOnForms()
-                ->hideWhenUpdating(),
+                ->onlyOnForms(),
             ArrayField::new('roles'),
             BooleanField::new('is_verified'),
             DateTimeField::new('created_at')

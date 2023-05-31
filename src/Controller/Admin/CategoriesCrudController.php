@@ -26,5 +26,5 @@ class CategoriesCrudController extends AbstractCrudController
             AssociationField::new('parent')->setRequired(false),
         ];
     }
-    
+
 }

@@ -22,7 +22,7 @@ class UserFixtures extends Fixture
         $admin->setEmail('admin@cineflix.fr');
         $admin->setUsername('Admin');
         $admin->setPassword(
-            $this->passwordEncoder->hashPassword($admin, 'admin')
+            $this->passwordEncoder->hashPassword($admin, 'adminCineflix')
         );
         $admin->setRoles(["ROLE_USER","ROLE_ADMIN"]);
         $manager->persist($admin);
